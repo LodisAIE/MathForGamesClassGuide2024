@@ -7,11 +7,12 @@ namespace HelloWorld
         static void Main(string[] args)
         {
             //Create a new instance of a Game
-            Game game = new Game();
+            Engine game = new Engine();
             //Run the Game
             game.Run();
             //Wait before closing
             Console.ReadKey();
+
         }
     }
 }
