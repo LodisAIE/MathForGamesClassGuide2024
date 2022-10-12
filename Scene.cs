@@ -7,7 +7,7 @@ namespace HelloWorld
     internal class Scene
     {
         private char[,] _map;
-        private Actor _actor;
+        private Actor[] _actors;
 
         /// <summary>
         /// Initializes map array and sets all characters to be empty spaces.
@@ -36,18 +36,42 @@ namespace HelloWorld
 
         public void Start()
         {
-            _actor = new Actor("bob", 'B', 0, 0);
+            _actors = new Actor[2];
+            _actors[0] = new Actor("bob", 'B', 0, 0);
+            _actors[1] = new Player("Player", '@', 0, 1);
+
+            //Call start for each actor in the scene.
+            for (int i = 0; i < _actors.Length; i++)
+            {
+                _actors[i].Start();
+            }
         }
 
         public void Update()
         {
-            _actor.Update();
+            //Update each actor in the scene.
+            for (int i = 0; i < _actors.Length; i++)
+            {
+                _actors[i].Update();
+            }
         }
 
         public void Draw()
         {
-            _map[_actor.PositionY, _actor.PositionX] = _actor.Icon;
+            ///Clear the map to remove previous drawings of actors.
+            InitializeMap();
 
+            for (int i = 0; i < _actors.Length; i++)
+            { 
+                ///Prevent the program from crashing when an actor moves out of bounds. 
+                if (_actors[i].Position.Y < _map.GetLength(0) && _actors[i].Position.X < _map.GetLength(1) 
+                    && _actors[i].Position.Y >= 0 && _actors[i].Position.X >= 0)
+                {
+                    _map[(int)_actors[i].Position.Y, (int)_actors[i].Position.X] = _actors[i].Icon;
+                }
+            }
+
+            //Prints all actors inside the map.
             for (int i = 0;  i < _map.GetLength(0); i++)
             {
                 for (int j = 0; j < _map.GetLength(1); j++)
@@ -61,7 +85,11 @@ namespace HelloWorld
 
         public void End()
         {
-
+            //Call end for each actor in the scene.
+            for (int i = 0; i < _actors.Length; i++)
+            {
+                _actors[i].End();
+            }
         }
     }
 }

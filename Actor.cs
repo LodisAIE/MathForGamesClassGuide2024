@@ -1,47 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using MathLibrary;
 
 namespace HelloWorld
 {
     internal class Actor
     {
-        private int _positionX;
-        private int _positionY;
+        private Vector2 _position;
         private string _name;
         private char _icon;
 
-        public int PositionX
+        public Vector2 Position
         {
-            get 
+            get
             {
-                return _positionX;
+                return _position;   
             }
-            set 
+            set
             {
-                if (value < 0)
-                {
-                    value = 0;
-                }
-
-                _positionX = value;
-            }
-        }
-
-        public int PositionY
-        {
-            get 
-            {
-                return _positionY;
-            }
-            set 
-            {
-                if (value < 0)
-                {
-                    value = 0;
-                }
-
-                _positionY = value;
+                _position = value;
             }
         }
 
@@ -75,20 +53,37 @@ namespace HelloWorld
         {
             _name = name;
             _icon = icon;
-            _positionX = positionX;
-            _positionY = positionY;
+            _position = new Vector2(positionX, positionY);
         }
 
-        public void Start()
+        public Actor(string name, char icon, Vector2 position)
+        {
+            _name = name;
+            _icon = icon;
+            _position = position;
+        }
+
+        public void Translate(float x, float y)
+        {
+            _position.X += x;
+            _position.Y += y;
+        }
+
+        public void Translate(Vector2 direction)
+        {
+            _position.X += direction.X;
+            _position.Y += direction.Y;
+        }
+
+        public virtual void Start()
         {
         }
 
-        public void Update()
+        public virtual void Update()
         {
-            PositionX++;
         }
 
-        public void End()
+        public virtual void End()
         {
 
         }

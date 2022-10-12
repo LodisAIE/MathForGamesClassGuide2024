@@ -8,6 +8,7 @@ namespace HelloWorld
     {
         private bool _applicationShouldClose;
         private Scene _testScene;
+        private static ConsoleKey _input;
 
         //Run the game
         public void Run()
@@ -23,6 +24,11 @@ namespace HelloWorld
             End();
         }
 
+        public static ConsoleKey GetInput()
+        {
+            return _input;
+        }
+
         //Performed once when the game begins
         private void Start()
         {
@@ -33,8 +39,8 @@ namespace HelloWorld
         //Repeated until the game ends
         private void Update()
         {
+            _input = Console.ReadKey(true).Key;
             _testScene.Update();
-            Console.ReadKey();
         }
 
         //Updates visuals every game loop
