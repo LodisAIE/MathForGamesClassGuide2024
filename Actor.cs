@@ -71,8 +71,8 @@ namespace HelloWorld
 
         public void Translate(Vector2 direction)
         {
-            _position.X += direction.X;
-            _position.Y += direction.Y;
+            //new way with operator overloading
+            _position += direction;
         }
 
         public virtual void Start()

@@ -9,6 +9,8 @@ namespace HelloWorld
 {
     internal class Player : Actor
     {
+        private int _speed = 2;
+
         public Player(string name, char icon, int positionX, int positionY) :
             base(name, icon, positionX, positionY)
         {
@@ -19,24 +21,30 @@ namespace HelloWorld
         {
             ConsoleKey input = Engine.GetInput();
 
+            Vector2 direction = new Vector2();
+
             switch (input)
             {
                 case ConsoleKey.D:
-                    Translate(1, 0);
+                    direction = new Vector2(1, 0);
                     break;
 
                 case ConsoleKey.A:
-                    Translate(-1, 0);
+                    direction = new Vector2(-1, 0);
                     break;
 
                 case ConsoleKey.W:
-                    Translate(0, -1);
+                    direction = new Vector2(0, -1);
                     break;
 
                 case ConsoleKey.S:
-                    Translate(0, 1);
+                    direction = new Vector2(0, 1);
                     break;
             }
+
+            Vector2 velocity = direction * _speed;
+
+            Translate(velocity);
         }
     }
 }

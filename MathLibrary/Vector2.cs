@@ -46,5 +46,34 @@
             _y = y;
         }
 
+        public static Vector2 operator +(Vector2 lhs, Vector2 rhs)
+        {
+            return new Vector2(lhs.X + rhs.X, lhs.Y + rhs.Y);
+        }
+
+        public static Vector2 operator -(Vector2 lhs, Vector2 rhs)
+        {
+            return new Vector2(lhs.X - rhs.X, lhs.Y - rhs.Y);
+        }
+
+        public static Vector2 operator *(Vector2 lhs, float rhs)
+        {
+            return new Vector2(lhs.X * rhs, lhs.Y * rhs);
+        }
+
+        public static Vector2 operator *(float lhs, Vector2 rhs)
+        {
+            return new Vector2(lhs * rhs.X, lhs * rhs.Y);
+        }
+
+        public static Vector2 operator /(Vector2 lhs, float rhs)
+        {
+            return new Vector2(lhs.X / rhs, lhs.Y / rhs);
+        }
+
+        public static Vector2 operator /(float lhs, Vector2 rhs)
+        {
+            return new Vector2(lhs / rhs.X, lhs / rhs.Y);
+        }
     }
 }

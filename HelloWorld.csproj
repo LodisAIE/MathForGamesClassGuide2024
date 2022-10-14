@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -6,7 +6,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MathLibrary\MathLibrary.csproj" />
+    <Compile Remove="MathLibrary\**" />
+    <EmbeddedResource Remove="MathLibrary\**" />
+    <None Remove="MathLibrary\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Raylib-cs" Version="4.2.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="MathLibrary\MathLibrary.csproj" />
   </ItemGroup>
 
 </Project>
