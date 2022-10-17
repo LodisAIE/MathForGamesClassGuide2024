@@ -38,12 +38,43 @@
             }
         }
 
+        /// <summary>
+        /// Gets the length of this vector.
+        /// </summary>
+        public float Magnitude
+        {
+            get
+            {
+
+            }
+        }
+
+        /// <summary>
+        /// Returns a copy of this vector that has a length of one.
+        /// </summary>
+        public Vector2 Normalized
+        {
+            get
+            {
+
+            }
+        }
+
         /// <param name="x"> The first value of the vector. </param>
         /// <param name="y"> The second value of the vector. </param>
         public Vector2(float x, float y)
         {
             _x = x;
             _y = y;
+        }
+
+        /// <summary>
+        /// Changes the length of this vector to have a magnitude that is equal to one.
+        /// </summary>
+        /// <returns>The result of the normalization.</returns>
+        public Vector2 Normalize()
+        {
+
         }
 
         public static Vector2 operator +(Vector2 lhs, Vector2 rhs)

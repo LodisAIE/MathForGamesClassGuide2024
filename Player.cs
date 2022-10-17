@@ -9,7 +9,7 @@ namespace HelloWorld
 {
     internal class Player : Actor
     {
-        private int _speed = 2;
+        private float _speed = 50;
 
         public Player(string name, char icon, int positionX, int positionY) :
             base(name, icon, positionX, positionY)
@@ -17,32 +17,11 @@ namespace HelloWorld
 
         }
 
-        public override void Update()
+        public override void Update(float deltaTime)
         {
-            ConsoleKey input = Engine.GetInput();
+            Vector2 direction = Input.GetMoveInput();
 
-            Vector2 direction = new Vector2();
-
-            switch (input)
-            {
-                case ConsoleKey.D:
-                    direction = new Vector2(1, 0);
-                    break;
-
-                case ConsoleKey.A:
-                    direction = new Vector2(-1, 0);
-                    break;
-
-                case ConsoleKey.W:
-                    direction = new Vector2(0, -1);
-                    break;
-
-                case ConsoleKey.S:
-                    direction = new Vector2(0, 1);
-                    break;
-            }
-
-            Vector2 velocity = direction * _speed;
+            Vector2 velocity = direction * _speed * deltaTime;
 
             Translate(velocity);
         }

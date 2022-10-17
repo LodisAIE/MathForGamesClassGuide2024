@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using MathLibrary;
+using Raylib_cs;
 
 namespace HelloWorld
 {
@@ -15,7 +16,7 @@ namespace HelloWorld
         {
             get
             {
-                return _position;   
+                return _position;
             }
             set
             {
@@ -79,8 +80,13 @@ namespace HelloWorld
         {
         }
 
-        public virtual void Update()
+        public virtual void Update(float deltaTime)
         {
+        }
+
+        public virtual void Draw()
+        {
+            Raylib.DrawText(Icon.ToString(), (int)Position.X, -(int)Position.Y, 50, Color.DARKBLUE);
         }
 
         public virtual void End()

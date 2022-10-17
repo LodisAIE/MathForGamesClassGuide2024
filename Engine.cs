@@ -1,53 +1,82 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Raylib_cs;
+using System.Diagnostics;
 
 namespace HelloWorld
 {
     class Engine
     {
-        private bool _applicationShouldClose;
+        private const int SCREEN_WIDTH = 800;
+        private const int SCREEN_HEIGHT = 450;
         private Scene _testScene;
-        private static ConsoleKey _input;
+        private Stopwatch _stopwatch;
 
-        //Run the game
+        /// <summary>
+        /// Called to begin the applciation.
+        /// </summary>
         public void Run()
         {
+            //Calls start for the current scene.
             Start();
 
-            while (!_applicationShouldClose)
+            //Start a new stopwatch to keep track of the time that's passed.
+            _stopwatch = new Stopwatch();
+            _stopwatch.Start();
+
+            //Initialize default variables for calculating deltatime.
+            float currentTime = 0;
+            float lastTime = 0;
+            float deltaTime = 0;
+
+            //Loop until the application is told to close.
+            while (!Raylib.WindowShouldClose())
             {
+                //Store the current time that has passed since the game started in seconds.
+                currentTime = _stopwatch.ElapsedMilliseconds / 1000.0f;
+
+                //Subtract last time from current time to find delta time.
+                deltaTime = currentTime - lastTime;
+
+                //Update the current scene.
+                Update(deltaTime);
+                //Draw the current scene.
                 Draw();
-                Update();
+
+                //Store the current time for the next delta time calculation.
+                lastTime = currentTime;
             }
 
             End();
         }
 
-        public static ConsoleKey GetInput()
-        {
-            return _input;
-        }
-
         //Performed once when the game begins
         private void Start()
         {
-            _testScene = new Scene(20, 20);
+            Raylib.InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "MathForGames");
+            Raylib.SetTargetFPS(0);
+
+            _testScene = new Scene();
             _testScene.Start();
         }
 
         //Repeated until the game ends
-        private void Update()
+        private void Update(float deltaTime)
         {
-            _input = Console.ReadKey(true).Key;
-            _testScene.Update();
+            _testScene.Update(deltaTime);
         }
 
         //Updates visuals every game loop
         private void Draw()
         {
-            Console.Clear();
+            Raylib.BeginDrawing();
+
+            Raylib.ClearBackground(Color.BLACK);
+
             _testScene.Draw();
+
+            Raylib.EndDrawing();
         }
 
         //Performed once when the game ends
