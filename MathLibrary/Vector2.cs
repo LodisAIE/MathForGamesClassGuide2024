@@ -45,7 +45,7 @@
         {
             get
             {
-
+                return (float)Math.Sqrt(X * X + Y * Y);
             }
         }
 
@@ -56,7 +56,13 @@
         {
             get
             {
+                if (Magnitude <= 0.0f)
+                {
+                    return new Vector2(0.0f, 0.0f);
+                }
 
+                Vector2 normalized = new Vector2(X / Magnitude, Y / Magnitude);
+                return normalized;
             }
         }
 
@@ -74,7 +80,14 @@
         /// <returns>The result of the normalization.</returns>
         public Vector2 Normalize()
         {
+            if (Magnitude <= 0.0f)
+            {
+                return new Vector2(0.0f, 0.0f);
+            }
 
+            X = X / Magnitude;
+            Y = Y / Magnitude;
+            return this;
         }
 
         public static Vector2 operator +(Vector2 lhs, Vector2 rhs)

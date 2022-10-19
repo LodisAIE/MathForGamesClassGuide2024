@@ -14,8 +14,11 @@ namespace HelloWorld
         }
 
         public void Start()
-        {
-            _actors[0] = new Actor("bob", 'B', 0, 0);
+        { 
+            Player player = new Player("Player", '@', 0, 1);
+            Enemy enemy = new Enemy("bob", 'B', 0, 0, player);
+
+            _actors[0] = new Enemy("bob", 'B', 0, 0, _actors[1]);
             _actors[1] = new Player("Player", '@', 0, 1);
 
             //Call start for each actor in the scene.

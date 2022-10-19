@@ -21,7 +21,7 @@ namespace HelloWorld
         {
             Vector2 direction = Input.GetMoveInput();
 
-            Vector2 velocity = direction * _speed * deltaTime;
+            Vector2 velocity = direction.Normalized * _speed * deltaTime;
 
             Translate(velocity);
         }

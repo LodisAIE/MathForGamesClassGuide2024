@@ -83,6 +83,7 @@ namespace HelloWorld
         private void End()
         {
             _testScene.End();
+            Raylib.CloseWindow();
         }
     }
 }
