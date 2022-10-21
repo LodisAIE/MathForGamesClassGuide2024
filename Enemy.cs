@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MathLibrary;
+using Raylib_cs;
 
 namespace HelloWorld
 {
@@ -12,8 +13,8 @@ namespace HelloWorld
         private float _speed = 40;
         private Actor _target;
 
-        public Enemy(string name, char icon, int positionX, int positionY, Actor target) :
-            base(name, icon, positionX, positionY)
+        public Enemy(string name, char icon, int positionX, int positionY, Actor target, Color iconColor) :
+            base(name, icon, positionX, positionY, iconColor)
         {
             _target = target;
         }

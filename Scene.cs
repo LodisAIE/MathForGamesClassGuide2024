@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Raylib_cs;
 
 namespace HelloWorld
 {
@@ -15,11 +16,11 @@ namespace HelloWorld
 
         public void Start()
         { 
-            Player player = new Player("Player", '@', 0, 1);
-            Enemy enemy = new Enemy("bob", 'B', 0, 0, player);
+            Player player = new Player("Player", '@', 0, 1, Color.DARKBLUE);
+            Enemy enemy = new Enemy("bob", 'B', 200, 200, player, Color.DARKBLUE);
 
-            _actors[0] = new Enemy("bob", 'B', 0, 0, _actors[1]);
-            _actors[1] = new Player("Player", '@', 0, 1);
+            _actors[0] = player;
+            _actors[1] = enemy;
 
             //Call start for each actor in the scene.
             for (int i = 0; i < _actors.Length; i++)
