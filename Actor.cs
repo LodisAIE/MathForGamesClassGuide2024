@@ -95,7 +95,9 @@ namespace HelloWorld
 
         public virtual void Draw()
         {
+            Vector2 endPos = new Vector2(50, 50) + Position;
             Raylib.DrawText(Icon.ToString(), (int)Position.X, (int)Position.Y, 50, _iconColor);
+            Raylib.DrawLine((int)Position.X, (int)Position.Y, (int)endPos.X, (int)endPos.Y, _iconColor);
         }
 
         public virtual void End()

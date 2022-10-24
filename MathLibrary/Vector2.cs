@@ -90,9 +90,26 @@
             return this;
         }
 
+        /// <summary>
+        /// Finds the dot product between the two vectors.
+        /// </summary>
+        /// <param name="a">The vector that will be used as the base.</param>
+        /// <param name="b">The vector to project on to the other.</param>
+        /// <returns>The dot product scalar value.</returns>
         public static float GetDotProduct(Vector2 a, Vector2 b)
         {
             return a.X * b.X + a.Y * b.Y;
+        }
+
+        /// <summary>
+        /// Finds the distance between two points.
+        /// </summary>
+        /// <param name="a">The starting position.</param>
+        /// <param name="b">The ending position.</param>
+        /// <returns>The distance scalar value.</returns>
+        public static float GetDistance(Vector2 a, Vector2 b)
+        {
+            return (b - a).Magnitude;
         }
 
         public static Vector2 operator +(Vector2 lhs, Vector2 rhs)

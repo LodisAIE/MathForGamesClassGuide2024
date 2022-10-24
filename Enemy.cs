@@ -12,11 +12,18 @@ namespace HelloWorld
     {
         private float _speed = 40;
         private Actor _target;
+        private Vector2 _facing;
+
+        public Vector2 Facing
+        {
+            get { return _facing; }
+        }
 
         public Enemy(string name, char icon, int positionX, int positionY, Actor target, Color iconColor) :
             base(name, icon, positionX, positionY, iconColor)
         {
             _target = target;
+            _facing = new Vector2(1, 0);
         }
 
         /// <summary>
@@ -37,7 +44,7 @@ namespace HelloWorld
             Vector2 direction = GetDirectionToTarget();
             Vector2 velocity = direction * _speed * deltaTime;
 
-            Translate(velocity);
+            //Translate(velocity);
         }
     }
 }

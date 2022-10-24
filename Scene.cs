@@ -19,6 +19,8 @@ namespace HelloWorld
             Player player = new Player("Player", '@', 0, 1, Color.DARKBLUE);
             Enemy enemy = new Enemy("bob", 'B', 200, 200, player, Color.DARKBLUE);
 
+            player.Target = enemy;
+
             _actors[0] = player;
             _actors[1] = enemy;
 
