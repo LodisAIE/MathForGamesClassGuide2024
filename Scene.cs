@@ -37,6 +37,23 @@ namespace HelloWorld
             for (int i = 0; i < _actors.Length; i++)
             {
                 _actors[i].Update(deltaTime);
+
+                //Skip collision check if there isn't a collider attached to this actor.
+                if (_actors[i].CollisionVolume == null)
+                    continue;
+
+                //Check to see if this actor collided with any other actor.
+                for (int j = 0; j < _actors.Length; j++)
+                {
+                    //Skip collision check if there isn't a collider attached to this actor.
+                    if (_actors[j].CollisionVolume == null)
+                        continue;
+
+                    if (_actors[i].CheckCollision(_actors[j]))
+                    {
+                        _actors[i].OnCollision(_actors[j]);
+                    }
+                }
             }
         }
 

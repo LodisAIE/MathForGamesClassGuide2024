@@ -24,6 +24,7 @@ namespace HelloWorld
             base(name, icon, positionX, positionY, iconColor)
         {
             _defaultColor = iconColor;
+            CollisionVolume = new CircleCollider(this, 100);
         }
 
         private bool CheckCanBackStab()
@@ -54,6 +55,12 @@ namespace HelloWorld
             Console.WriteLine(velocity.Magnitude);
 
             Translate(velocity);
+        }
+
+        public override void Draw()
+        {
+            base.Draw();
+            CollisionVolume.Draw();
         }
     }
 }

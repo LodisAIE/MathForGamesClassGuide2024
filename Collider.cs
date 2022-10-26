@@ -32,14 +32,18 @@ namespace HelloWorld
         /// <returns>Whether or not the colliders are overlapping.</returns>
         public bool CheckCollision(Actor other)
         {
-            return false;
+            return CheckCollisionCircle((CircleCollider)other.CollisionVolume);
         }
 
-        public virtual bool CheckCollisionCircle()
+        public virtual bool CheckCollisionCircle(CircleCollider collider)
         {
             return false;
         }
 
+        public virtual bool CheckCollisionAABB()
+        {
+            return false;
+        }
         public virtual void Draw() { }
     }
 }
