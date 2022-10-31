@@ -12,7 +12,7 @@ namespace HelloWorld
         /// Make it to where actors move and scale using the transform matrix
         /// instead of the variables we have now. 
         /// </summary>
-        private Matrix3 _transform;
+        private Matrix3 _transform = new Matrix3();
         private string _name;
         private char _icon;
         private Color _iconColor;
@@ -22,11 +22,12 @@ namespace HelloWorld
         {
             get
             {
-                return _position;
+                return new Vector2(_transform.M20, _transform.M21);
             }
             set
             {
-                _position = value;
+                _transform.M20 = value.X;
+                _transform.M21 = value.Y;
             }
         }
 
@@ -64,8 +65,13 @@ namespace HelloWorld
 
         public Vector2 Scale
         {
-            get { return _scale; }
-            set { _scale = value; }
+            get 
+            {
+                float xMag = new Vector2(_transform.M00, _transform.M10).Magnitude;
+                float yMag = new Vector2(_transform.M00, _transform.M10).Magnitude;
+
+                return new Vector2(xMag, yMag);
+            }
         }
 
         public Actor(string name, char icon)
@@ -96,7 +102,7 @@ namespace HelloWorld
             _icon = icon;
             Position = position;
             _iconColor = iconColor;
-            _scale = scale;
+            SetScale(new Vector2(scale, scale));
         }
 
         public void Translate(float x, float y)
@@ -108,6 +114,21 @@ namespace HelloWorld
         {
             //new way with operator overloading
             Position += direction;
+        }
+
+        public void SetScale(Vector2 scale)
+        {
+            Vector2 xAxis = new Vector2(_transform.M00, _transform.M01);
+            Vector2 yAxis = new Vector2(_transform.M10, _transform.M11);
+
+            xAxis = xAxis.Normalized * scale.X;
+            yAxis = yAxis.Normalized * scale.Y;
+
+            _transform.M00 = xAxis.X;
+            _transform.M01 = xAxis.Y;
+
+            _transform.M10 = yAxis.X;
+            _transform.M11 = yAxis.Y;
         }
 
         /// <summary>
@@ -128,7 +149,7 @@ namespace HelloWorld
 
         public virtual void Draw()
         {
-            Raylib.DrawText(Icon.ToString(), (int)(Position.X - Scale / 2), (int)(Position.Y - Scale / 2), (int)Scale, _iconColor);
+            Raylib.DrawText(Icon.ToString(), (int)(Position.X - Scale.X / 2), (int)(Position.Y - Scale.X / 2), (int)Scale.X, _iconColor);
         }
 
         public virtual void End() {}

@@ -17,6 +17,7 @@ namespace HelloWorld
         public void Start()
         { 
             Player player = new Player("Player", '@', 0, 1, Color.DARKBLUE);
+            player.SetScale(new MathLibrary.Vector2(50, 50));
             Enemy enemy = new Enemy("bob", 'B', 200, 200, player, Color.DARKBLUE);
 
             player.Target = enemy;
