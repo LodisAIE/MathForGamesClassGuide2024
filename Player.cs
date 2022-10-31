@@ -37,6 +37,13 @@ namespace HelloWorld
             return dot <= -0.9f && distance <= 75;
         }
 
+        public override void OnCollision(Actor other)
+        {
+            base.OnCollision(other);
+
+
+        }
+
         public override void Update(float deltaTime)
         {
             if (CheckCanBackStab())

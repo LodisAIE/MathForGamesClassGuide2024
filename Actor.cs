@@ -8,12 +8,15 @@ namespace HelloWorld
 {
     internal class Actor
     {
-        private Vector2 _position;
+        /// <summary>
+        /// Make it to where actors move and scale using the transform matrix
+        /// instead of the variables we have now. 
+        /// </summary>
+        private Matrix3 _transform;
         private string _name;
         private char _icon;
         private Color _iconColor;
         private Collider _collisionVolume;
-        private float _scale = 50;
 
         public Vector2 Position
         {
@@ -59,7 +62,7 @@ namespace HelloWorld
             set { _collisionVolume = value; }
         }
 
-        public float Scale
+        public Vector2 Scale
         {
             get { return _scale; }
             set { _scale = value; }
@@ -75,7 +78,7 @@ namespace HelloWorld
         {
             _name = name;
             _icon = icon;
-            _position = new Vector2(positionX, positionY);
+            Position = new Vector2(positionX, positionY);
             _iconColor = iconColor;
         }
 
@@ -83,7 +86,7 @@ namespace HelloWorld
         {
             _name = name;
             _icon = icon;
-            _position = position;
+            Position = position;
             _iconColor = iconColor;
         }
 
@@ -91,21 +94,20 @@ namespace HelloWorld
         {
             _name = name;
             _icon = icon;
-            _position = position;
+            Position = position;
             _iconColor = iconColor;
             _scale = scale;
         }
 
         public void Translate(float x, float y)
         {
-            _position.X += x;
-            _position.Y += y;
+            Position += new Vector2(x, y);
         }
 
         public void Translate(Vector2 direction)
         {
             //new way with operator overloading
-            _position += direction;
+            Position += direction;
         }
 
         /// <summary>
