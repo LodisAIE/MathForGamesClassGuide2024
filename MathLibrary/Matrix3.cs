@@ -24,26 +24,38 @@ namespace MathLibrary
             M20 = m20; M21 = m21; M22 = m22;
         }
 
+        /// <summary>
+        /// A base matrix that does nothing when multiplied by another.
+        /// Useful for setting a default matrix value.
+        /// </summary>
         public static Matrix3 Identity
         {
             get 
             {
+                //Create a new matrix 3
+                //Assign the new matrix the values of an identity matrix
+                Matrix3 identity = new Matrix3(1,0,0,
+                                               0,1,0,
+                                               0,0,1);
+                //return the new matrix
+                return identity;
             }
         }
 
         public static Matrix3 operator +(Matrix3 lhs, Matrix3 rhs)
         {
+            return new Matrix3();
         }
 
 
         public static Matrix3 operator -(Matrix3 lhs, Matrix3 rhs)
         {
-
+            return new Matrix3();
         }
 
         public static Matrix3 operator *(Matrix3 lhs, Matrix3 rhs)
         {
-
+            return new Matrix3();
         }
     }
 }

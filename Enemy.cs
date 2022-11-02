@@ -19,8 +19,8 @@ namespace HelloWorld
             get { return _facing; }
         }
 
-        public Enemy(string name, char icon, int positionX, int positionY, Actor target, Color iconColor) :
-            base(name, icon, positionX, positionY, iconColor)
+        public Enemy(string name, Sprite sprite, int positionX, int positionY, Actor target) :
+            base(name, sprite, positionX, positionY)
         {
             _target = target;
             _facing = new Vector2(1, 0);

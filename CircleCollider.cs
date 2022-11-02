@@ -30,7 +30,7 @@ namespace HelloWorld
         public override void Draw()
         {
             base.Draw();
-            Raylib.DrawCircleLines((int)Owner.Position.X, (int)Owner.Position.Y, CollisionRadius, Owner.IconColor);
+            Raylib.DrawCircleLines((int)Owner.Position.X, (int)Owner.Position.Y, CollisionRadius, Color.RED);
         }
     }
 }
