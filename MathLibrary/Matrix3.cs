@@ -29,6 +29,10 @@ namespace MathLibrary
             M20 = m20; M21 = m21; M22 = m22;
         }
 
+        /// <summary>
+        /// A base matrix that does nothing when multiplied by another.
+        /// Useful for setting a default matrix value.
+        /// </summary>
         public static Matrix3 Identity
         {
             get 

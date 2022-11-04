@@ -15,10 +15,12 @@ namespace HelloWorld
         }
 
         public void Start()
-        { 
-            Player player = new Player("Player", '@', 0, 1, Color.DARKBLUE);
-            player.SetScale(new MathLibrary.Vector2(50, 50));
-            Enemy enemy = new Enemy("bob", 'B', 200, 200, player, Color.DARKBLUE);
+        {
+            Sprite playerGraphic = new Sprite("Images/player.png");
+            Sprite enemyGraphic = new Sprite("Images/enemy.png");
+
+            Player player = new Player("Player", playerGraphic, 0, 1);
+            Enemy enemy = new Enemy("bob", enemyGraphic, 200, 200, player);
 
             player.Target = enemy;
 

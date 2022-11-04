@@ -14,9 +14,8 @@ namespace HelloWorld
         /// </summary>
         private Matrix3 _transform = new Matrix3();
         private string _name;
-        private char _icon;
-        private Color _iconColor;
         private Collider _collisionVolume;
+        private Sprite _graphic;
 
         public Vector2 Position
         {
@@ -43,24 +42,16 @@ namespace HelloWorld
             }
         }
 
-        public char Icon
-        {
-            get
-            {
-                return _icon;
-            }
-        }
-
-        public Color IconColor
-        {
-            get { return _iconColor; }
-            set { _iconColor = value; }
-        }
-
         public Collider CollisionVolume
         {
             get { return _collisionVolume; }
             set { _collisionVolume = value; }
+        }
+
+        public Sprite Graphic
+        {
+            get { return _graphic; }
+            set { _graphic = value; }
         }
 
         public Vector2 Scale
@@ -74,35 +65,32 @@ namespace HelloWorld
             }
         }
 
-        public Actor(string name, char icon)
+        public Actor(string name, Sprite sprite)
         {
             _name = name;
-            _icon = icon;
+            _graphic = sprite;
         }
 
-        public Actor(string name, char icon, int positionX, int positionY, Color iconColor)
+        public Actor(string name, Sprite sprite, int positionX, int positionY)
         {
             _name = name;
-            _icon = icon;
             Position = new Vector2(positionX, positionY);
-            _iconColor = iconColor;
+            _graphic = sprite;
         }
 
-        public Actor(string name, char icon, Vector2 position, Color iconColor)
+        public Actor(string name, Sprite sprite, Vector2 position)
         {
             _name = name;
-            _icon = icon;
             Position = position;
-            _iconColor = iconColor;
+            _graphic = sprite;
         }
 
-        public Actor(string name, char icon, Vector2 position, Color iconColor, float scale)
+        public Actor(string name, Sprite sprite, Vector2 position, float scale)
         {
             _name = name;
-            _icon = icon;
             Position = position;
-            _iconColor = iconColor;
-            SetScale(new Vector2(scale, scale));
+            _graphic = sprite;
+            //SetScale(new Vector2(scale, scale));
         }
 
         public void Translate(float x, float y)
@@ -141,17 +129,24 @@ namespace HelloWorld
             return CollisionVolume.CheckCollision(other);
         }
 
-        public virtual void OnCollision(Actor other) {}
+        public virtual void OnCollision(Actor other) { }
 
-        public virtual void Start() {}
+        public virtual void Start() 
+        {
+            _transform.M00 = 50;
+            _transform.M11 = 50;
+        }
 
-        public virtual void Update(float deltaTime) {}
+        public virtual void Update(float deltaTime) { }
 
         public virtual void Draw()
         {
-            Raylib.DrawText(Icon.ToString(), (int)(Position.X - Scale.X / 2), (int)(Position.Y - Scale.X / 2), (int)Scale.X, _iconColor);
+            if (_graphic != null)
+            {
+                _graphic.Draw(_transform);
+            }
         }
 
-        public virtual void End() {}
+        public virtual void End() { }
     }
 }

@@ -20,10 +20,10 @@ namespace HelloWorld
             set { _target = value; }
         }
 
-        public Player(string name, char icon, int positionX, int positionY, Color iconColor) :
-            base(name, icon, positionX, positionY, iconColor)
+        public Player(string name, Sprite sprite, int positionX, int positionY) :
+            base(name, sprite, positionX, positionY)
         {
-            _defaultColor = iconColor;
+            _defaultColor = Graphic.SpriteColor;
             CollisionVolume = new CircleCollider(this, 100);
         }
 
@@ -48,18 +48,17 @@ namespace HelloWorld
         {
             if (CheckCanBackStab())
             {
-                IconColor = Color.RAYWHITE;
+                Graphic.SpriteColor = Color.RAYWHITE;
             }
             else
             {
-                IconColor = _defaultColor;
+                Graphic.SpriteColor = _defaultColor;
             }
 
             Vector2 direction = Input.GetMoveInput();
 
             Vector2 velocity = direction.Normalized * _speed * deltaTime;
 
-            Console.WriteLine(velocity.Magnitude);
 
             Translate(velocity);
         }
