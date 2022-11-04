@@ -11,7 +11,7 @@ namespace HelloWorld
 
         public Scene()
         {
-            _actors = new Actor[2];
+            _actors = new Actor[5];
         }
 
         public void Start()
@@ -26,6 +26,7 @@ namespace HelloWorld
 
             _actors[0] = player;
             _actors[1] = enemy;
+            enemy.IsActive = false;
 
             //Call start for each actor in the scene.
             for (int i = 0; i < _actors.Length; i++)
@@ -39,17 +40,26 @@ namespace HelloWorld
             //Update each actor in the scene.
             for (int i = 0; i < _actors.Length; i++)
             {
+                //If the actor isn't active in the scene...
+                if (!_actors[i].IsActive)
+                {
+                    //...skip its update.
+                    continue;
+                }
+
                 _actors[i].Update(deltaTime);
 
                 //Skip collision check if there isn't a collider attached to this actor.
                 if (_actors[i].CollisionVolume == null)
+                {
                     continue;
+                }
 
                 //Check to see if this actor collided with any other actor.
                 for (int j = 0; j < _actors.Length; j++)
                 {
                     //Skip collision check if there isn't a collider attached to this actor.
-                    if (_actors[j].CollisionVolume == null)
+                    if (_actors[j].CollisionVolume == null || !_actors[j].IsActive)
                         continue;
 
                     if (_actors[i].CheckCollision(_actors[j]))
@@ -64,7 +74,10 @@ namespace HelloWorld
         {
             for (int i = 0; i < _actors.Length; i++)
             {
-                _actors[i].Draw();
+                if (_actors[i].IsActive)
+                {
+                    _actors[i].Draw();
+                }
             }
         }
 

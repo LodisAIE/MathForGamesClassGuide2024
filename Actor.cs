@@ -16,6 +16,7 @@ namespace HelloWorld
         private string _name;
         private Collider _collisionVolume;
         private Sprite _graphic;
+        private bool _isActive = true;
 
         public Vector2 Position
         {
@@ -63,6 +64,12 @@ namespace HelloWorld
 
                 return new Vector2(xMag, yMag);
             }
+        }
+
+        public bool IsActive
+        {
+            get { return _isActive; }
+            set { _isActive = value; }
         }
 
         public Actor(string name, Sprite sprite)
