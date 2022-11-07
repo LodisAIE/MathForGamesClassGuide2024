@@ -11,7 +11,7 @@ namespace HelloWorld
 
         public Scene()
         {
-            _actors = new Actor[5];
+            _actors = new Actor[2];
         }
 
         public void Start()

@@ -29,10 +29,10 @@ namespace HelloWorld
 
         private bool CheckCanBackStab()
         {
-            Vector2 direction = (Position - Target.Position).Normalized;
+            Vector2 direction = (Transform.Position - Target.Transform.Position).Normalized;
             float dot = Vector2.GetDotProduct(Target.Facing, direction);
 
-            float distance = Vector2.GetDistance(Position, Target.Position);
+            float distance = Vector2.GetDistance(Transform.Position, Target.Transform.Position);
 
             return dot <= -0.9f && distance <= 75;
         }
@@ -46,6 +46,8 @@ namespace HelloWorld
 
         public override void Update(float deltaTime)
         {
+            base.Update(deltaTime);
+
             if (CheckCanBackStab())
             {
                 Graphic.SpriteColor = Color.RAYWHITE;
@@ -60,7 +62,7 @@ namespace HelloWorld
             Vector2 velocity = direction.Normalized * _speed * deltaTime;
 
 
-            Translate(velocity);
+            Transform.Translate(velocity);
         }
 
         public override void Draw()

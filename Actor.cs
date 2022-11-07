@@ -12,24 +12,11 @@ namespace HelloWorld
         /// Make it to where actors move and scale using the transform matrix
         /// instead of the variables we have now. 
         /// </summary>
-        private Matrix3 _transform = new Matrix3();
+        private Transform2D _transform;
         private string _name;
         private Collider _collisionVolume;
         private Sprite _graphic;
         private bool _isActive = true;
-
-        public Vector2 Position
-        {
-            get
-            {
-                return new Vector2(_transform.M20, _transform.M21);
-            }
-            set
-            {
-                _transform.M20 = value.X;
-                _transform.M21 = value.Y;
-            }
-        }
 
         public string Name
         {
@@ -41,6 +28,11 @@ namespace HelloWorld
             {
                 _name = value;
             }
+        }
+
+        public Transform2D Transform
+        {
+            get { return _transform; }
         }
 
         public Collider CollisionVolume
@@ -55,17 +47,6 @@ namespace HelloWorld
             set { _graphic = value; }
         }
 
-        public Vector2 Scale
-        {
-            get 
-            {
-                float xMag = new Vector2(_transform.M00, _transform.M10).Magnitude;
-                float yMag = new Vector2(_transform.M00, _transform.M10).Magnitude;
-
-                return new Vector2(xMag, yMag);
-            }
-        }
-
         public bool IsActive
         {
             get { return _isActive; }
@@ -74,57 +55,36 @@ namespace HelloWorld
 
         public Actor(string name, Sprite sprite)
         {
+            _transform = new Transform2D(this);
             _name = name;
             _graphic = sprite;
         }
 
         public Actor(string name, Sprite sprite, int positionX, int positionY)
         {
+            _transform = new Transform2D(this);
             _name = name;
-            Position = new Vector2(positionX, positionY);
+            Transform.Position = new Vector2(positionX, positionY);
             _graphic = sprite;
         }
 
         public Actor(string name, Sprite sprite, Vector2 position)
         {
+            _transform = new Transform2D(this);
             _name = name;
-            Position = position;
+            Transform.Position = position;
             _graphic = sprite;
         }
 
         public Actor(string name, Sprite sprite, Vector2 position, float scale)
         {
+            _transform = new Transform2D(this);
             _name = name;
-            Position = position;
+            Transform.Position = position;
             _graphic = sprite;
             //SetScale(new Vector2(scale, scale));
         }
 
-        public void Translate(float x, float y)
-        {
-            Position += new Vector2(x, y);
-        }
-
-        public void Translate(Vector2 direction)
-        {
-            //new way with operator overloading
-            Position += direction;
-        }
-
-        public void SetScale(Vector2 scale)
-        {
-            Vector2 xAxis = new Vector2(_transform.M00, _transform.M01);
-            Vector2 yAxis = new Vector2(_transform.M10, _transform.M11);
-
-            xAxis = xAxis.Normalized * scale.X;
-            yAxis = yAxis.Normalized * scale.Y;
-
-            _transform.M00 = xAxis.X;
-            _transform.M01 = xAxis.Y;
-
-            _transform.M10 = yAxis.X;
-            _transform.M11 = yAxis.Y;
-        }
 
         /// <summary>
         /// Checks to see if the collision volume attached to this actor overlapped another.
@@ -140,11 +100,20 @@ namespace HelloWorld
 
         public virtual void Start() 
         {
-            _transform.M00 = 50;
-            _transform.M11 = 50;
+            _transform.LocalScale = new Vector2(50, 50);
         }
 
-        public virtual void Update(float deltaTime) { }
+        float radians = 0;
+
+        public virtual void Update(float deltaTime)
+        {
+            CircleCollider circleCollider = (CircleCollider)CollisionVolume;
+            _transform.LocalScale = new Vector2(radians += deltaTime * 2, radians += deltaTime * 2);
+            _transform.Rotation = Matrix3.CreateRotation(radians += deltaTime * 10);
+            circleCollider.CollisionRadius = _transform.LocalScale.X;
+
+            _transform.UpdateTransform();
+        }
 
         public virtual void Draw()
         {

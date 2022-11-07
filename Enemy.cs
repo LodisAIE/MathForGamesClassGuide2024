@@ -32,7 +32,7 @@ namespace HelloWorld
         /// <returns>A normalized vector that represents the targets direction.</returns>
         public Vector2 GetDirectionToTarget()
         {
-            Vector2 direction = (_target.Position - Position).Normalized;
+            Vector2 direction = (_target.Transform.Position - _target.Transform.Position).Normalized;
             return direction;
         }
 

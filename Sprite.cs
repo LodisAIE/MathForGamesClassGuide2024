@@ -74,23 +74,21 @@ namespace HelloWorld
         /// of the given transform
         /// </summary>
         /// <param name="transform"></param>
-        public void Draw(Matrix3 transform)
+        public void Draw(Transform2D transform)
         {
             //Finds the scale of the sprite
-            float xMagnitude = (float)Math.Round(new Vector2(transform.M00, transform.M01).Magnitude);
-            float yMagnitude = (float)Math.Round(new Vector2(transform.M10, transform.M11).Magnitude);
-            Width = (int)xMagnitude;
-            Height = (int)yMagnitude;
+            Width = (int)Math.Round(transform.LocalScale.X);
+            Height = (int)Math.Round(transform.LocalScale.Y);
 
             //Sets the sprite center to the transform origin
-            System.Numerics.Vector2 position = new System.Numerics.Vector2(transform.M20, transform.M21);
-            System.Numerics.Vector2 forward = new System.Numerics.Vector2(transform.M00, transform.M10);
-            System.Numerics.Vector2 up = new System.Numerics.Vector2(transform.M10, transform.M11);
+            System.Numerics.Vector2 position = new System.Numerics.Vector2(transform.Position.X, transform.Position.Y);
+            System.Numerics.Vector2 forward = new System.Numerics.Vector2(transform.Forward.X, transform.Forward.Y);
+            System.Numerics.Vector2 up = new System.Numerics.Vector2(transform.Up.X, transform.Up.Y);
             position -= (forward / forward.Length()) * Width / 2;
             position -= (up / up.Length()) * Height / 2;
 
             //Find the transform rotation in radians 
-            float rotation = (float)Math.Atan2(transform.M10, transform.M00);
+            float rotation = transform.RotationAngle;
 
             //Draw the sprite
             Raylib.DrawTextureEx(_texture, position,
