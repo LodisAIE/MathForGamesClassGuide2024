@@ -64,7 +64,7 @@ namespace HelloWorld
         {
             _transform = new Transform2D(this);
             _name = name;
-            Transform.Position = new Vector2(positionX, positionY);
+            Transform.LocalPosition = new Vector2(positionX, positionY);
             _graphic = sprite;
         }
 
@@ -72,7 +72,7 @@ namespace HelloWorld
         {
             _transform = new Transform2D(this);
             _name = name;
-            Transform.Position = position;
+            Transform.LocalPosition = position;
             _graphic = sprite;
         }
 
@@ -80,7 +80,7 @@ namespace HelloWorld
         {
             _transform = new Transform2D(this);
             _name = name;
-            Transform.Position = position;
+            Transform.LocalPosition = position;
             _graphic = sprite;
             //SetScale(new Vector2(scale, scale));
         }
@@ -100,7 +100,6 @@ namespace HelloWorld
 
         public virtual void Start() 
         {
-            _transform.LocalScale = new Vector2(50, 50);
         }
 
         float radians = 0;
@@ -108,11 +107,15 @@ namespace HelloWorld
         public virtual void Update(float deltaTime)
         {
             CircleCollider circleCollider = (CircleCollider)CollisionVolume;
-            _transform.LocalScale = new Vector2(radians += deltaTime * 2, radians += deltaTime * 2);
-            _transform.Rotation = Matrix3.CreateRotation(radians += deltaTime * 10);
-            circleCollider.CollisionRadius = _transform.LocalScale.X;
+            float increase = radians += deltaTime * 2;
+            _transform.LocalRotation = Matrix3.CreateRotation(radians += deltaTime * 10);
 
-            _transform.UpdateTransform();
+            if (circleCollider != null)
+            {
+                circleCollider.CollisionRadius = _transform.LocalScale.X;
+            }
+
+            _transform.UpdateTransforms();
         }
 
         public virtual void Draw()

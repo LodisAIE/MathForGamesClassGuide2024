@@ -29,10 +29,11 @@ namespace HelloWorld
 
         private bool CheckCanBackStab()
         {
-            Vector2 direction = (Transform.Position - Target.Transform.Position).Normalized;
+            return false;
+            Vector2 direction = (Transform.LocalPosition - Target.Transform.LocalPosition).Normalized;
             float dot = Vector2.GetDotProduct(Target.Facing, direction);
 
-            float distance = Vector2.GetDistance(Transform.Position, Target.Transform.Position);
+            float distance = Vector2.GetDistance(Transform.LocalPosition, Target.Transform.LocalPosition);
 
             return dot <= -0.9f && distance <= 75;
         }
@@ -40,8 +41,6 @@ namespace HelloWorld
         public override void OnCollision(Actor other)
         {
             base.OnCollision(other);
-
-
         }
 
         public override void Update(float deltaTime)
@@ -60,7 +59,6 @@ namespace HelloWorld
             Vector2 direction = Input.GetMoveInput();
 
             Vector2 velocity = direction.Normalized * _speed * deltaTime;
-
 
             Transform.Translate(velocity);
         }

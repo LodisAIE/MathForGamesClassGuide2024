@@ -77,18 +77,18 @@ namespace HelloWorld
         public void Draw(Transform2D transform)
         {
             //Finds the scale of the sprite
-            Width = (int)Math.Round(transform.LocalScale.X);
-            Height = (int)Math.Round(transform.LocalScale.Y);
+            Width = (int)Math.Round(transform.GlobalScale.X);
+            Height = (int)Math.Round(transform.GlobalScale.Y);
 
             //Sets the sprite center to the transform origin
-            System.Numerics.Vector2 position = new System.Numerics.Vector2(transform.Position.X, transform.Position.Y);
+            System.Numerics.Vector2 position = new System.Numerics.Vector2(transform.GlobalPosition.X, transform.GlobalPosition.Y);
             System.Numerics.Vector2 forward = new System.Numerics.Vector2(transform.Forward.X, transform.Forward.Y);
             System.Numerics.Vector2 up = new System.Numerics.Vector2(transform.Up.X, transform.Up.Y);
-            position -= (forward / forward.Length()) * Width / 2;
-            position -= (up / up.Length()) * Height / 2;
+            position -= forward * (Width / 2f);
+            position -= up * (Height / 2f);
 
             //Find the transform rotation in radians 
-            float rotation = transform.RotationAngle;
+            float rotation = -transform.GlobalRotationAngle;
 
             //Draw the sprite
             Raylib.DrawTextureEx(_texture, position,

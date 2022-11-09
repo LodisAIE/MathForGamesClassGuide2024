@@ -26,13 +26,18 @@ namespace HelloWorld
             _facing = new Vector2(1, 0);
         }
 
+        public override void Start()
+        {
+            base.Start();
+        }
+
         /// <summary>
         /// Gets the direction the enemy's target is in.
         /// </summary>
         /// <returns>A normalized vector that represents the targets direction.</returns>
         public Vector2 GetDirectionToTarget()
         {
-            Vector2 direction = (_target.Transform.Position - _target.Transform.Position).Normalized;
+            Vector2 direction = (_target.Transform.LocalPosition - _target.Transform.LocalPosition).Normalized;
             return direction;
         }
 

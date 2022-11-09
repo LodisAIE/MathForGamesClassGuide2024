@@ -19,14 +19,17 @@ namespace HelloWorld
             Sprite playerGraphic = new Sprite("Images/player.png");
             Sprite enemyGraphic = new Sprite("Images/enemy.png");
 
-            Player player = new Player("Player", playerGraphic, 0, 1);
-            Enemy enemy = new Enemy("bob", enemyGraphic, 200, 200, player);
+            Player player = new Player("Player", playerGraphic, 0, 0);
+            player.Transform.LocalScale = new MathLibrary.Vector2(50, 50);
 
-            player.Target = enemy;
+            Enemy enemy = new Enemy("bob", enemyGraphic, 1, 1, player);
+
+            enemy.Transform.LocalScale = new MathLibrary.Vector2(1, 1);
+
+            player.Transform.AddChild(enemy.Transform);
 
             _actors[0] = player;
             _actors[1] = enemy;
-            enemy.IsActive = false;
 
             //Call start for each actor in the scene.
             for (int i = 0; i < _actors.Length; i++)
