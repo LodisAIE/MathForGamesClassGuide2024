@@ -64,7 +64,7 @@ namespace MathLibrary
         {
             get
             {
-                return (float)Math.Sqrt(X * X + Y * Y + Z * Z);
+                return (float)Math.Sqrt(X * X + Y * Y + Z*Z);
             }
         }
 
@@ -106,7 +106,6 @@ namespace MathLibrary
             }
 
             float mag = Magnitude;
-
             X /= mag;
             Y /= mag;
             Z /= mag;
@@ -125,9 +124,9 @@ namespace MathLibrary
             return a.X * b.X + a.Y * b.Y + a.Z * b.Z;
         }
 
-        public static Vector3 GetCrossProduct(Vector3 a, Vector3 b)
+        public static Vector3 CrossProduct(Vector3 lhs, Vector3 rhs)
         {
-            return new Vector3();
+            return new Vector3(lhs.Y * rhs.Z - lhs.Z * rhs.Y, lhs.Z * rhs.X - lhs.X * rhs.Z, lhs.X * rhs.Y - lhs.Y * rhs.X);
         }
 
         /// <summary>
